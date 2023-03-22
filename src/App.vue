@@ -8,10 +8,10 @@
   <p v-else></p>
   <ul>
     <li v-for="todo in todos" :key="todo.id">
-      <input type="checkbox" checked /><span>{{ todo.text }}</span>
-    </li>
-    <li v-for="champion in champions" :key="champion.id">
-      <input type="checkbox" checked /><span>{{ champion.text }}</span>
+      <input v-model="todo.isDone" type="checkbox" checked /><span
+        :class="{ 'todo-done': todo.isDone }"
+        >{{ todo.text }}</span
+      >
     </li>
   </ul>
 </template>
@@ -31,7 +31,7 @@ export default {
       if (!this.newTodo) {
         return alert("文字を入れてください");
       }
-      this.todos.push({ id: id++, text: this.newTodo });
+      this.todos.push({ id: id++, isDone: false, text: this.newTodo });
       this.newTodo = "";
     },
   },
@@ -44,9 +44,6 @@ body {
 }
 
 .todo-done {
-  text-decoration: line-through;
-}
-.champion-done {
   text-decoration: line-through;
 }
 </style>
