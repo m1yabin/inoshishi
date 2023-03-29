@@ -1,14 +1,12 @@
 <template>
   <h1>My ToDo App</h1>
-  <form @submit.prevent="addTodo">
-    <input v-model="newTodo" /><button>追加</button
-    ><button>完了済みを削除する</button>
-  </form>
+  <input v-model="newTodo" /><button @click="addTodo">追加</button
+  ><button @click="clearDoneTodos">完了済みを削除する</button>
   <p v-if="todos.length === 0">ToDoがまだありません。</p>
   <p v-else></p>
   <ul>
     <li v-for="todo in todos" :key="todo.id">
-      <input v-model="todo.isDone" type="checkbox" checked /><span
+      <input type="checkbox" v-model="todo.isDone" /><span
         :class="{ 'todo-done': todo.isDone }"
         >{{ todo.text }}</span
       >
@@ -33,6 +31,9 @@ export default {
       }
       this.todos.push({ id: id++, isDone: false, text: this.newTodo });
       this.newTodo = "";
+    },
+    clearDoneTodos() {
+      this.todos = this.todos.filter((todo) => !todo.isDone);
     },
   },
 };
