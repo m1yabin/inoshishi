@@ -1,10 +1,9 @@
 <template>
   <h1>My ToDo App</h1>
-  <input v-model="newTodo" /><button @click="addTodo">追加</button
+  <input type="text" v-model="newTodo" /><button @click="addTodo">追加</button
   ><button @click="clearDoneTodos">完了済みを削除する</button>
-  <p v-if="todos.length === 0">ToDoがまだありません。</p>
-  <p v-else></p>
-  <ul>
+  <p v-if="todos.length === 0">ToDoがまだありません！</p>
+  <ul v-else>
     <li v-for="todo in todos" :key="todo.id">
       <input type="checkbox" v-model="todo.isDone" /><span
         :class="{ 'todo-done': todo.isDone }"
@@ -13,10 +12,8 @@
     </li>
   </ul>
 </template>
-
 <script>
 let id = 0;
-
 export default {
   data() {
     return {
@@ -27,7 +24,8 @@ export default {
   methods: {
     addTodo() {
       if (!this.newTodo) {
-        return alert("文字を入れてください");
+        alert("文字を入力してください！");
+        return;
       }
       this.todos.push({ id: id++, isDone: false, text: this.newTodo });
       this.newTodo = "";
@@ -38,12 +36,10 @@ export default {
   },
 };
 </script>
-
 <style>
 body {
   background-color: #eee;
 }
-
 .todo-done {
   text-decoration: line-through;
 }
